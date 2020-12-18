@@ -3,7 +3,7 @@
  * @author Tatiana GRIES
  */
 
-public class Hommepresse extends Personnage
+public class HommePresse extends Personnage
 {
 	private boolean mort; // on va se servir de ça après pour voir s'il est vivant ou mort.
 
