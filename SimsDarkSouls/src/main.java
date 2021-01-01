@@ -41,17 +41,17 @@ public class main {
 //				break;
 //			}	
 //        }
-        ;
-        System.out.println(monde.tab_ville[32][32].getClass());
+        
+        System.out.println(monde.tab_ville[30][31].getClass());
         for (int i = 0; i < monde.tab_ville.length; i++) {
-        	for (int j = 0; j < monde.tab_ville[i].length; j++) {
-        		System.out.print(i);
-        		System.out.print("_");
-        		System.out.print(j);
-				System.out.print(monde.tab_ville[i][j].getClass());
-				System.out.print(" - ");
-			}
-			System.out.println(" ");
+//        	for (int j = 0; j < monde.tab_ville[i].length; j++) {
+//        		System.out.print(i);
+//        		System.out.print("_");
+//        		System.out.print(j);
+//				//System.out.print(monde.tab_ville[i][j].getClass());
+//				System.out.print(" - ");
+//			}
+//			System.out.println(" ");
 		}
         
 //        for (int i = 0; i < size; i++) {

@@ -25,34 +25,42 @@ public class Ville {
 		for (int k = 0; k < n; k++) {
 			for (int k2 = 0; k2 < m; k2++) {
 				c = br.read();
-				char character = (char) c;           
+				char character = (char) c;     
+				System.out.print(character);
 				switch (character) {
 				case 49: {
 					tab_ville[k][k2]= new Grise();
+					System.out.print("1-");
 					break;
 				}
 				case 50: {
 					tab_ville[k][k2]= new Foret();
+					System.out.print("2-");
 					break;
 				}
 				case 51: {
 					tab_ville[k][k2]= new Eau();
+					System.out.print("3-");
 					break;
 				}
 				case 52: {
 					tab_ville[k][k2]= new Route();
+					System.out.print("4-");
 					break;
 				}
 				case 53: {
 					tab_ville[k][k2]= new Trottoir();
+					System.out.print("5-");
 					break;
 				}
 				case 54: {
-					tab_ville[k][k2]= new Grise();
+					tab_ville[k][k2]= new Batiment();
+					System.out.print(1);
 					break;
 				}
 				case 13: {
 					//retourn a la ligne
+					System.out.println();
 					break;
 				}
 				case 10: {
@@ -64,6 +72,7 @@ public class Ville {
 				}
 				
 			}
+			
 			
 		}
 		br.close();
