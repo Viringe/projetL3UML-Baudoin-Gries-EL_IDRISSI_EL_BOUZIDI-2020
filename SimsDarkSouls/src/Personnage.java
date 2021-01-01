@@ -5,12 +5,12 @@
 public abstract class Personnage 
 {
     private String nom;
-    protected int vie; // point de vie
-    protected int hyd; // hydratation
-    protected int sat; // satiété
-    protected int mor; // moral
+    protected double vie; // point de vie
+    protected double hyd; // hydratation
+    protected double sat; // satiété
+    protected double mor; // moral
 
-    public Personnage(String nom,int vie,int hyd,int sat,int mor)
+    public Personnage(String nom,double vie,double hyd,double sat,double mor)
     {
         this.nom = nom;
         this.vie = vie;
@@ -36,37 +36,37 @@ public abstract class Personnage
     }
 
     //accesseurs : permet de récupérer l'info
-    public int getVie()
+    public double getVie()
     {
         return vie;
     }
-     public int getHyd()
+     public double getHyd()
     {
         return hyd;
     }
-     public int getSat()
+     public double getSat()
     {
         return sat;
     }
-     public int getmor()
+     public double getmor()
     {
         return mor;
     }
 
     //setters : définie les valeurs
-    public void setVie(int valeurDep)
+    public void setVie(double valeurDep)
     {
         vie = valeurDep;
     }
-    public void setHyd(int valeurDep)
+    public void setHyd(double valeurDep)
     {
         hyd = valeurDep;
     }
-    public void setSat(int valeurDep)
+    public void setSat(double valeurDep)
     {
         vie = valeurDep;
     }
-    public void setMor(int valeurDep)
+    public void setMor(double valeurDep)
     {
         vie = valeurDep;
     }

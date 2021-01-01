@@ -99,7 +99,9 @@ public class main {
         	System.out.println( "seReposer,deplacer" );//liste action
         	
             String action = cmd.nextLine();
-            if (action.equals("seReposer") && monde.tab_ville[i][j].getClass().toString().equals("Maison")) {
+            if (action.equals("seReposer") && monde.tab_ville[i][j].getClass().toString().equals("Maison"))
+            {
+            	gestionBarreA(perso);
             	perso.setRepos(1);
             	
 			}
@@ -123,19 +125,31 @@ public class main {
                     
                     if (direction.equals("up") && !monde.tab_ville[i][j].getClass().toString().equals("Grise"))
                     {
-						i--;
+                    	i--;
+                    	gestionBarreD(perso);
+                    	if (monde.tab_ville[i][j].getClass().toString().equals("Foret"))
+                    	{
+							double rand = Math.random()*100;
+							System.out.println(rand);
+							if ((int)rand > 10) {
+								System.out.println("lol tes malade");
+							}
+						}
 						//if action rand make it 
 					}
 					if (direction.equals("down") && !monde.tab_ville[i][j].getClass().toString().equals("Grise"))
 					{
+						gestionBarreD(perso);
 						i++;					
 										}
 					if (direction.equals("right") && !monde.tab_ville[i][j].getClass().toString().equals("Grise"))
 					{
+						gestionBarreD(perso);
 						j++;
 					}
 					if (direction.equals("left") && !monde.tab_ville[i][j].getClass().toString().equals("Grise"))
 					{
+						gestionBarreD(perso);
 						j--;
 					}
 					if(direction.equals("exit"))
@@ -159,5 +173,43 @@ public class main {
 				
 				
 	}
+	
+	public static void gestionBarreD(Personnage perso)
+	{
+		if (perso.getClass().equals("HommePresse"))
+		{
+			perso.setMor(perso.getmor()-2);
+		}
+		else if (perso.getClass().equals("HommeHippie")) {
+			//gestionBarreA(perso);
+			perso.setVie(perso.getVie()-2);
+		}
+		else if (perso.getClass().equals("HommeNormale")) {
+			gestionBarreA(perso);
+		}
+	}
+	
+	public static void gestionBarreA(Personnage perso)
+	{
+		if (perso.getClass().equals("HommePresse"))
+		{
+			perso.setMor(perso.getmor()-1);
+			perso.setVie(perso.getVie()-1);
+			perso.setHyd(perso.getHyd()-1);
+			perso.setSat(perso.getSat()-1);
+		}
+		else if (perso.getClass().equals("HommeHippie")) {
+			perso.setMor(perso.getmor()-0.5);
+			perso.setVie(perso.getVie()-0.5);
+			perso.setHyd(perso.getHyd()-0.5);
+			perso.setSat(perso.getSat()-0.5);
+		}
+		else if (perso.getClass().equals("HommeNormale")) {
+			perso.setVie(perso.getVie()-1);
+		}
+	}
+	
+	
+	
 
 }
