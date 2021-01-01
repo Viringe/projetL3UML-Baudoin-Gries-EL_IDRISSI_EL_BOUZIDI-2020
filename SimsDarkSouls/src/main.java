@@ -1,14 +1,16 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		Scanner cmd = new Scanner( System.in );
 		
-		System.out.print( "chosii une taille de ville 20,30,40,50 : " );
-        int size = cmd.nextInt();
-        Ville monde = null;
+		//System.out.print( "chosii une taille de ville 20,30,40,50 : " );
+        //int size = cmd.nextInt();
+        int size=32;
+		Ville monde = null;
         
         monde = new Ville(size,size);
         
@@ -40,9 +42,13 @@ public class main {
 //			}	
 //        }
         //monde.tab_ville[i][j].getClass();
-        for (int i = 0; i < size+2; i++) {
-        	for (int j = 0; j < size+2; j++) {
-				System.out.print(monde.tab_ville[i][j].getClass());
+        System.out.println(monde.tab_ville.length);
+        for (int i = 0; i <= size; i++) {
+        	for (int j = 0; j <= size; j++) {
+        		System.out.print(i);
+        		System.out.print("_");
+        		System.out.print(j);
+				//System.out.print(monde.tab_ville[i][j].getClass());
 				System.out.print(" - ");
 			}
 			System.out.println(" ");
