@@ -9,7 +9,7 @@ public class HommeHippie extends Personnage
 
 	public HommeHippie(String nom)
 	{
-		super(nom);
+		super(nom,75,50,50,100);
 		mort = false;
 	}
 
@@ -22,24 +22,17 @@ public class HommeHippie extends Personnage
 
 	public boolean deplacer(Case verif)
 	{
-		switch (verif.getType())
+		switch (verif.getClass().toString())
 		{
-			case TypeCase.EAU:
+			case "Eau":
 				return false;
-			case TypeCase.NORMAL:
+			case "Batiment":
 				return true;
-			case TypeCase.FORET:
+			case "Foret":
 				return true;
 			default:
 				return false;
 		}
 	}
 
-	public Personnage()
-	{
-		vie = 75;
-		hyd = 50;
-		sat = 50
-		mor = 100;
-	}
 }

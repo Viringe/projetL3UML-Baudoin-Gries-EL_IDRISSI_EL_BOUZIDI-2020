@@ -61,11 +61,60 @@ public class main {
 //			}
 //			System.out.println(" ");
 //		}
+        
+        Personnage perso = null;
+        while(true)
+        {
+        	System.out.print( "type de personage hippie,presse,standard : " );
+            String type = cmd.nextLine();
+            System.out.println("-"+type+"-");
+            if (type.equals("hippie")) {
+    			//create le perso
+            	System.out.print( "nom de votre hippie: " );
+                String name = cmd.nextLine();
+            	perso = new HommeHippie(name);
+            	break;
+    		}
+    		if (type.equals("presse"))
+    		{
+    			System.out.print( "nom de votre homme persse: " );
+                String name = cmd.nextLine();
+                perso = new HommePresse(name);
+            	break;
+    		}
+    		if (type.equals("standard"))
+    		{
+    			System.out.print( "nom de votre homme standard: " );
+                String name = cmd.nextLine();
+                perso = new HommeNormal(name);
+            	break;
+    		}
+        }
+        int i = 4,j=4;
+        while(true)
+        {
+        	//monde.tab_ville[i][j]; //emplacement de la maison
+        	System.out.println( "que voulez vous faire: " );
+        	
+        	System.out.print( "(seReposer)" );//liste action
+        	
+            String action = cmd.nextLine();
+            if (action.equals("seReposer") && monde.tab_ville[i][j].getClass().toString().equals("Maison")) {
+            	perso.setRepos(1);
+            	
+			}
+            else
+            {
+            	System.out.println( "action impossible" );
+            }
+            
+        	
+        }
+
+        
+        
 				
 				
 	}
 
 }
-
-
-//.getClass()
