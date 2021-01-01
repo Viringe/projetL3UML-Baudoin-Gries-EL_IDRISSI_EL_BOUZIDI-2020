@@ -67,7 +67,7 @@ public class main {
         {
         	System.out.print( "type de personage hippie,presse,standard : " );
             String type = cmd.nextLine();
-            System.out.println("-"+type+"-");
+            //System.out.println("-"+type+"-");
             if (type.equals("hippie")) {
     			//create le perso
             	System.out.print( "nom de votre hippie: " );
@@ -94,13 +94,56 @@ public class main {
         while(true)
         {
         	//monde.tab_ville[i][j]; //emplacement de la maison
-        	System.out.println( "que voulez vous faire: " );
+        	System.out.print( "que voulez vous faire: " );
         	
-        	System.out.print( "(seReposer)" );//liste action
+        	System.out.println( "seReposer,deplacer" );//liste action
         	
             String action = cmd.nextLine();
             if (action.equals("seReposer") && monde.tab_ville[i][j].getClass().toString().equals("Maison")) {
             	perso.setRepos(1);
+            	
+			}
+            else
+            {
+            	//System.out.println( "action impossible" );
+            }
+            
+            if (action.equals("deplacer")) {
+            	while(true)
+            	{
+ 
+            		System.out.println("votre position: "+monde.tab_ville[i][j].getClass().getName());
+            		
+            		System.out.println("         "+monde.tab_ville[i-1][j].getClass().getName());//haut
+            		System.out.println(" "+monde.tab_ville[i][j-1].getClass().getName()+"          "+monde.tab_ville[i][j+1].getClass().getName());//droite
+            		System.out.println("         "+monde.tab_ville[i+1][j].getClass().getName());//bas
+            		//System.out.println( );//gauche
+            		System.out.println( "direction: " );//liste action
+                    String direction = cmd.nextLine();
+                    
+                    if (direction.equals("up") && !monde.tab_ville[i][j].getClass().toString().equals("Grise"))
+                    {
+						i--;
+						//if action rand make it 
+					}
+					if (direction.equals("down") && !monde.tab_ville[i][j].getClass().toString().equals("Grise"))
+					{
+						i++;					
+										}
+					if (direction.equals("right") && !monde.tab_ville[i][j].getClass().toString().equals("Grise"))
+					{
+						j++;
+					}
+					if (direction.equals("left") && !monde.tab_ville[i][j].getClass().toString().equals("Grise"))
+					{
+						j--;
+					}
+					if(direction.equals("exit"))
+					{
+						break;
+					}
+            	}
+            	
             	
 			}
             else
