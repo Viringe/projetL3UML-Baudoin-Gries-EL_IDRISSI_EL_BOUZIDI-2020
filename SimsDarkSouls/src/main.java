@@ -41,15 +41,15 @@ public class main {
 //				break;
 //			}	
 //        }
-        //monde.tab_ville[i][j].getClass();
+        monde.tab_ville[31][31].getClass();
         System.out.println(monde.tab_ville.length);
-        for (int i = 0; i <= size; i++) {
-        	for (int j = 0; j <= size; j++) {
-        		System.out.print(i);
-        		System.out.print("_");
-        		System.out.print(j);
+        for (int i = 0; i < size; i++) {
+        	for (int j = 0; j < size; j++) {
+        		//System.out.print(i);
+        		//System.out.print("_");
+        		//System.out.print(j);
 				//System.out.print(monde.tab_ville[i][j].getClass());
-				System.out.print(" - ");
+				//System.out.print(" - ");
 			}
 			System.out.println(" ");
 		}
