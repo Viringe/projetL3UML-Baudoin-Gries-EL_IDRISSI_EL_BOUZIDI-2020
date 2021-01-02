@@ -63,6 +63,7 @@ public class main {
 //		}
         
         Personnage perso = null;
+        int bonusChance=0;
         while(true)
         {
         	System.out.print( "type de personage hippie,presse,standard : " );
@@ -94,26 +95,26 @@ public class main {
         while(true)
         {
         	//monde.tab_ville[i][j]; //emplacement de la maison
+        	System.out.println( perso.toString() );
         	System.out.print( "que voulez vous faire: " );
         	
         	System.out.println( "seReposer,deplacer" );//liste action
         	
             String action = cmd.nextLine();
-            if (action.equals("seReposer") && monde.tab_ville[i][j].getClass().toString().equals("Maison"))
+            if (action.equals("seReposer") && monde.tab_ville[i][j].getClass().getName().equals("Maison"))
             {
             	gestionBarreA(perso);
             	perso.setRepos(1);
+            	malade(perso, 5);
             	
 			}
-            else
-            {
-            	//System.out.println( "action impossible" );
-            }
-            
-            if (action.equals("deplacer")) {
+            else if (action.equals("none")) {
+        		
+        	}
+            else if (action.equals("deplacer")) {
             	while(true)
             	{
- 
+            		System.out.println( perso.toString() );
             		System.out.println("votre position: "+monde.tab_ville[i][j].getClass().getName());
             		
             		System.out.println("         "+monde.tab_ville[i-1][j].getClass().getName());//haut
@@ -123,40 +124,70 @@ public class main {
             		System.out.println( "direction: " );//liste action
                     String direction = cmd.nextLine();
                     
-                    if (direction.equals("up") && !monde.tab_ville[i][j].getClass().toString().equals("Grise"))
+                    if(monde.tab_ville[i+1][j].getClass().getName().equals("Grise")||
+                    		monde.tab_ville[i-1][j].getClass().getName().equals("Grise")||
+                    		monde.tab_ville[i][j+1].getClass().getName().equals("Grise")||
+                    		monde.tab_ville[i][j-1].getClass().getName().equals("Grise"))
+					{
+						System.out.println("vous avez pris un mur, vous perde 10 point de vie");
+						System.out.println("non je decone");
+					}
+                    else if (direction.equals("up") && !monde.tab_ville[i-1][j].getClass().getName().equals("Grise"))
                     {
                     	i--;
                     	gestionBarreD(perso);
-                    	if (monde.tab_ville[i][j].getClass().toString().equals("Foret"))
-                    	{
-							double rand = Math.random()*100;
-							System.out.println(rand);
-							if ((int)rand > 10) {
-								System.out.println("lol tes malade");
-							}
-						}
+                    	
 						//if action rand make it 
 					}
-					if (direction.equals("down") && !monde.tab_ville[i][j].getClass().toString().equals("Grise"))
+                    else if (direction.equals("down") && !monde.tab_ville[i+1][j].getClass().getName().equals("Grise"))
 					{
 						gestionBarreD(perso);
 						i++;					
 										}
-					if (direction.equals("right") && !monde.tab_ville[i][j].getClass().toString().equals("Grise"))
+                    else if (direction.equals("right") && !monde.tab_ville[i][j+1].getClass().getName().equals("Grise"))
 					{
 						gestionBarreD(perso);
 						j++;
 					}
-					if (direction.equals("left") && !monde.tab_ville[i][j].getClass().toString().equals("Grise"))
+                    else if (direction.equals("left") && !monde.tab_ville[i][j-1].getClass().getName().equals("Grise"))
 					{
 						gestionBarreD(perso);
 						j--;
 					}
-					if(direction.equals("exit"))
+                    else if(direction.equals("exit"))
 					{
 						break;
 					}
+                    
+					if (monde.tab_ville[i][j].getClass().getName().equals("Foret"))
+                	{
+						malade(perso, 10);
+					}
+					else
+					{
+						malade(perso, 5);
+					}
+					if (monde.tab_ville[i][j].getClass().getName().equals("Bibliotheque"))
+                	{
+						perso.setMor(perso.getMor()+20);
+						bonusChance+=((Bibliotheque) monde.tab_ville[i][j]).trouverLivre();
+						
+					}
+					if (monde.tab_ville[i][j].getClass().getName().equals("Fast_food"))
+                	{
+						((Fast_food) monde.tab_ville[i][j]).manger(perso);
+					}
+					if (monde.tab_ville[i][j].getClass().getName().equals("Universite"))
+                	{
+						((Universite) monde.tab_ville[i][j]).obtenirDiplome(perso,bonusChance);
+					}
+					if (monde.tab_ville[i][j].getClass().getName().equals("Bar"))
+                	{
+						((Bar) monde.tab_ville[i][j]).boire(perso);
+						bonusChance+=((Bar) monde.tab_ville[i][j]).trouverEnonce();
+					}
             	}
+            	
             	
             	
 			}
@@ -176,38 +207,50 @@ public class main {
 	
 	public static void gestionBarreD(Personnage perso)
 	{
-		if (perso.getClass().equals("HommePresse"))
+		if (perso.getClass().getName().equals("HommePresse"))
 		{
-			perso.setMor(perso.getmor()-2);
+			perso.setMor(perso.getMor()-2);
 		}
-		else if (perso.getClass().equals("HommeHippie")) {
+		else if (perso.getClass().getName().equals("HommeHippie")) {
 			//gestionBarreA(perso);
 			perso.setVie(perso.getVie()-2);
 		}
-		else if (perso.getClass().equals("HommeNormale")) {
+		else if (perso.getClass().getName().equals("HommeNormale")) {
 			gestionBarreA(perso);
+		}
+	}
+	
+	public static void malade(Personnage perso,int chance)
+	{
+		double rand = Math.random()*100;
+		System.out.println(rand);
+		if ((int)rand <= chance) {
+			System.out.println("lol tes malade");
+			perso.setVie(perso.getVie()-10);
 		}
 	}
 	
 	public static void gestionBarreA(Personnage perso)
 	{
-		if (perso.getClass().equals("HommePresse"))
+		if (perso.getClass().getName().equals("HommePresse"))
 		{
-			perso.setMor(perso.getmor()-1);
+			perso.setMor(perso.getMor()-1);
 			perso.setVie(perso.getVie()-1);
 			perso.setHyd(perso.getHyd()-1);
 			perso.setSat(perso.getSat()-1);
 		}
-		else if (perso.getClass().equals("HommeHippie")) {
-			perso.setMor(perso.getmor()-0.5);
+		else if (perso.getClass().getName().equals("HommeHippie")) {
+			perso.setMor(perso.getMor()-0.5);
 			perso.setVie(perso.getVie()-0.5);
 			perso.setHyd(perso.getHyd()-0.5);
 			perso.setSat(perso.getSat()-0.5);
 		}
-		else if (perso.getClass().equals("HommeNormale")) {
+		else if (perso.getClass().getName().equals("HommeNormale")) {
 			perso.setVie(perso.getVie()-1);
 		}
 	}
+	
+	
 	
 	
 	

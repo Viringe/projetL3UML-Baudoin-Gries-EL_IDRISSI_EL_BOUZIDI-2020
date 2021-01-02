@@ -9,7 +9,8 @@ public abstract class Personnage
     protected double hyd; // hydratation
     protected double sat; // satiété
     protected double mor; // moral
-
+    protected double dip; // diplome
+    
     public Personnage(String nom,double vie,double hyd,double sat,double mor)
     {
         this.nom = nom;
@@ -17,6 +18,7 @@ public abstract class Personnage
         this.hyd = hyd;
         this.sat = sat;
         this.mor = mor;
+        this.dip=0;
     }
 
     public Personnage() 
@@ -25,6 +27,7 @@ public abstract class Personnage
       this.hyd= 100;
       this.sat= 100;
       this.mor = 100; // définie le perso au commencement
+      this.dip=0;
     }
 
     public Personnage (int valeurDep, int valeurDepBis)
@@ -33,6 +36,7 @@ public abstract class Personnage
         this.hyd = valeurDepBis;
         this.sat = valeurDepBis;
         this.mor = valeurDepBis;
+        this.dip=0;
     }
 
     //accesseurs : permet de récupérer l'info
@@ -48,27 +52,35 @@ public abstract class Personnage
     {
         return sat;
     }
-     public double getmor()
+     public double getMor()
     {
         return mor;
     }
+     public double getDip()
+     {
+         return dip;
+     }
 
     //setters : définie les valeurs
     public void setVie(double valeurDep)
     {
-        vie = valeurDep;
+        this.vie = valeurDep;
     }
     public void setHyd(double valeurDep)
     {
-        hyd = valeurDep;
+        this.hyd = valeurDep;
     }
     public void setSat(double valeurDep)
     {
-        vie = valeurDep;
+    	this.sat = valeurDep;
     }
     public void setMor(double valeurDep)
     {
-        vie = valeurDep;
+    	this.mor = valeurDep;
+    }
+    public void setDip(double valeurDep)
+    {
+    	this.dip = valeurDep;
     }
 
     // service :
@@ -87,15 +99,20 @@ public abstract class Personnage
         this.hyd += 10;
         if (mor > 100)
         {
-            mor = 100;
+        	this.mor = 100;
         }
         if (sat > 100)
         {
-            sat = 100;
+        	this.sat = 100;
         }
         if (hyd > 100)
         {
-            hyd = 100;
+        	this.hyd = 100;
         }
     }
+    
+    @Override
+    public String toString() { 
+        return String.format("nom: "+this.nom+",vie: "+this.vie+",hyd: "+this.hyd+",sat: "+this.sat+",morale: "+this.mor+",diplome: "+this.dip); 
+    } 
 }

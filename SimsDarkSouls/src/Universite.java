@@ -1,9 +1,17 @@
 
 public class Universite extends Batiment {
 	
-	void obtenirDiplome()
+	void obtenirDiplome(Personnage perso, int chance)
 	{
-		//10 points pour le moral, la satiété et l’hydratation
+		
+		double rand = Math.random()*100;
+		System.out.println(rand);
+		if ((int)rand <= 30+chance) {
+			System.out.println("optention du diplome");
+			perso.setDip(perso.getDip()+1);
+			//return 10;
+		}
+		//return 0;
 	}
 
 }
