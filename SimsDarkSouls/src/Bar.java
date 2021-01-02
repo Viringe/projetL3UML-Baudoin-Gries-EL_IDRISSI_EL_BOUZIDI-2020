@@ -1,4 +1,6 @@
-
+/**
+ * @author Alexis Baudoin
+ */
 public class Bar extends Batiment {
 	
 	void boire(Personnage perso)

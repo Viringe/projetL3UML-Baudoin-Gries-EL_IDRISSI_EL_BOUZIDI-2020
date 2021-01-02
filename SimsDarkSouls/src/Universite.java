@@ -1,4 +1,6 @@
-
+/**
+ * @author Alexis Baudoin
+ */
 public class Universite extends Batiment {
 	
 	void obtenirDiplome(Personnage perso, int chance)

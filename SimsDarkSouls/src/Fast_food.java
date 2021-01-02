@@ -1,4 +1,6 @@
-
+/**
+ * @author Alexis Baudoin
+ */
 public class Fast_food extends Batiment {
 	
 	void manger(Personnage perso)

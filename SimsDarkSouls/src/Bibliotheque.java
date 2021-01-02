@@ -1,4 +1,6 @@
-
+/**
+ * @author Alexis Baudoin
+ */
 public class Bibliotheque extends Batiment {
 	
 	int trouverLivre()

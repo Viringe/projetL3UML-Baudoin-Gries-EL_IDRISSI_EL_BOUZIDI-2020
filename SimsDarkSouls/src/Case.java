@@ -1,4 +1,6 @@
-
+/**
+ * @author Alexis Baudoin
+ */
 public class Case {
 	
 	public Case() {

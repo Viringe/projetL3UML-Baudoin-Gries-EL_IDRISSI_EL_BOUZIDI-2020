@@ -2,7 +2,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedReader;
-
+/**
+ * @author Alexis Baudoin
+ */
 public class Ville {
 	Case tab_ville[][];
 	int n;
