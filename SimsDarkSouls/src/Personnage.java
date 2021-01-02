@@ -4,7 +4,7 @@
 
 public abstract class Personnage 
 {
-    private String nom;
+	protected String nom;
     protected double vie; // point de vie
     protected double hyd; // hydratation
     protected double sat; // satiété
@@ -18,9 +18,9 @@ public abstract class Personnage
         this.hyd = hyd;
         this.sat = sat;
         this.mor = mor;
-        this.dip=0;
+        this.dip = 0;
     }
-
+    
     public Personnage() 
     {
       this.vie= 100;
@@ -56,10 +56,14 @@ public abstract class Personnage
     {
         return mor;
     }
-     public double getDip()
-     {
-         return dip;
-     }
+    public double getDip()
+    {
+        return dip;
+    }
+    public String getName()
+    {
+        return nom;
+    }
 
     //setters : définie les valeurs
     public void setVie(double valeurDep)

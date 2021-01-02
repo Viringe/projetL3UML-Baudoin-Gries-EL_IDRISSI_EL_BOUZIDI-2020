@@ -12,7 +12,7 @@ public class HommeNormal extends Personnage
 		super(nom,75,75,75,75);
 		mort = false;
 	}
-
+	
 	public void mort()
 	{
 		System.out.println("You died.");
