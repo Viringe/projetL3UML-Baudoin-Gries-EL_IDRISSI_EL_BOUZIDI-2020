@@ -10,6 +10,7 @@ public abstract class Personnage
     protected double sat; // satiété
     protected double mor; // moral
     protected double dip; // diplome
+    private boolean mort; // on va se servir de ça après pour voir s'il est vivant ou mort.
     
     public Personnage(String nom,double vie,double hyd,double sat,double mor)
     {
@@ -19,6 +20,7 @@ public abstract class Personnage
         this.sat = sat;
         this.mor = mor;
         this.dip = 0;
+        this.mort = false;
     }
     
     public Personnage() 
@@ -28,6 +30,7 @@ public abstract class Personnage
       this.sat= 100;
       this.mor = 100; // définie le perso au commencement
       this.dip=0;
+      this.mort = false;
     }
 
     public Personnage (int valeurDep, int valeurDepBis)
@@ -37,6 +40,7 @@ public abstract class Personnage
         this.sat = valeurDepBis;
         this.mor = valeurDepBis;
         this.dip=0;
+        this.mort = false;
     }
 
     //accesseurs : permet de récupérer l'info
@@ -93,6 +97,14 @@ public abstract class Personnage
 
     }
 
+	public void mort()
+	{
+		System.out.println("You died.");
+		// à voir pour utiliser et appeler dans le système plus tard ? 
+		this.mort=true;
+		System.exit(0);
+	}
+	
     public void setRepos(int reposMaison)
     {
         // Il y gagne 10 points pour le moral, 

@@ -159,6 +159,7 @@ public class main {
         while(true)
         {
         	//monde.tab_ville[i][j]; //emplacement de la maison
+        	verif(perso);
         	System.out.println( perso.toString() );
         	System.out.print( "que voulez vous faire: " );
         	
@@ -210,6 +211,7 @@ public class main {
             else if (action.equals("deplacer")) {
             	while(true)
             	{
+            		verif(perso);
             		System.out.println( perso.toString() );
             		System.out.println("votre position: "+monde.tab_ville[i][j].getClass().getName());
             		
@@ -217,13 +219,14 @@ public class main {
             		System.out.println(" "+monde.tab_ville[i][j-1].getClass().getName()+"          "+monde.tab_ville[i][j+1].getClass().getName());//droite
             		System.out.println("         "+monde.tab_ville[i+1][j].getClass().getName());//bas
             		//System.out.println( );//gauche
+            		//System.out.println(i+"  "+j);
             		System.out.println( "direction(up,down,right,left): " );//liste action
                     String direction = cmd.nextLine();
                     
-                    if(monde.tab_ville[i+1][j].getClass().getName().equals("Grise")||
-                    		monde.tab_ville[i-1][j].getClass().getName().equals("Grise")||
-                    		monde.tab_ville[i][j+1].getClass().getName().equals("Grise")||
-                    		monde.tab_ville[i][j-1].getClass().getName().equals("Grise"))
+                    if(direction.equals("down") && monde.tab_ville[i+1][j].getClass().getName().equals("Grise")||
+                    		direction.equals("up") && monde.tab_ville[i-1][j].getClass().getName().equals("Grise")||
+                    		direction.equals("right") && monde.tab_ville[i][j+1].getClass().getName().equals("Grise")||
+                    		direction.equals("left") && monde.tab_ville[i][j-1].getClass().getName().equals("Grise"))
 					{
 						System.out.println("vous avez pris un mur, vous perde 10 point de vie");
 						System.out.println("non je decone");
@@ -346,9 +349,20 @@ public class main {
 		}
 	}
 	
-	public static void save(Personnage perso,int i, int j,int bonus)
+	public static void verif(Personnage perso)
 	{
-		
+		if (perso.getHyd()<=0) {
+			perso.mort();
+		}
+		else if (perso.getSat()<=0) {
+			perso.mort();
+		}
+		else if (perso.getVie()<=0) {
+			perso.mort();
+		}
+		else if (perso.getMor()<=0) {
+			perso.mort();
+		}
 	}
 	
 
