@@ -13,6 +13,7 @@ public abstract class Personnage
     private boolean mort; // on va se servir de ça après pour voir s'il est vivant ou mort.
     protected Vehicule deplacement;
     protected int nbArret;
+    protected boolean maillot;
     
     public Personnage(String nom,double vie,double hyd,double sat,double mor)
     {
@@ -24,6 +25,14 @@ public abstract class Personnage
         this.dip = 0;
         this.mort = false;
         this.deplacement = new APied();
+        double rand = Math.random()*100;
+        if ((int)rand <= 10) {
+			this.maillot=true;
+		}
+        else
+        {
+        	this.maillot=false;
+        }
     }
     
     public Personnage() 
@@ -35,6 +44,14 @@ public abstract class Personnage
       this.dip=0;
       this.mort = false;
       this.deplacement = new APied();
+      double rand = Math.random()*100;
+      if ((int)rand <= 10) {
+			this.maillot=true;
+		}
+      else
+      {
+      	this.maillot=false;
+      }
     }
 
     public Personnage (int valeurDep, int valeurDepBis)
@@ -46,6 +63,14 @@ public abstract class Personnage
         this.dip=0;
         this.mort = false;
         this.deplacement = new APied();
+        double rand = Math.random()*100;
+        if ((int)rand <= 10) {
+			this.maillot=true;
+		}
+        else
+        {
+        	this.maillot=false;
+        }
     }
 
     //accesseurs : permet de récupérer l'info
@@ -88,15 +113,30 @@ public abstract class Personnage
     }
     public void setHyd(double valeurDep)
     {
-        this.hyd = valeurDep;
+    	if (this.hyd+valeurDep > 100)
+        {
+        	this.hyd = 100;
+        }
+    	else
+    		this.mor = valeurDep;
     }
     public void setSat(double valeurDep)
     {
-    	this.sat = valeurDep;
+    	if (this.sat+valeurDep > 100)
+        {
+        	this.sat = 100;
+        }
+    	else
+    		this.mor = valeurDep;
     }
     public void setMor(double valeurDep)
     {
-    	this.mor = valeurDep;
+    	if (this.mor+valeurDep > 100)
+        {
+        	this.mor = 100;
+        }
+    	else
+    		this.mor = valeurDep;
     }
     public void setDip(double valeurDep)
     {
@@ -109,8 +149,16 @@ public abstract class Personnage
     public void setNbArret(int dep) {
 		this.nbArret = dep;
 	}
+    
+    public boolean getMaillot() {
+		return maillot;
+	}
 
-    // service :
+	public void setMaillot(boolean maillot) {
+		this.maillot = maillot;
+	}
+
+	// service :
     public void seDeplacer(int deplacement)
     {
 
@@ -148,6 +196,6 @@ public abstract class Personnage
     
     @Override
     public String toString() { 
-        return String.format("nom: "+this.nom+",vie: "+this.vie+",hyd: "+this.hyd+",sat: "+this.sat+",morale: "+this.mor+",vehicule: "+this.deplacement.getClass().getName()+",diplome: "+this.dip); 
+        return String.format("nom: "+this.nom+",vie: "+this.vie+",hyd: "+this.hyd+",sat: "+this.sat+",morale: "+this.mor+",vehicule: "+this.deplacement.getClass().getName()+",maillot: "+this.maillot+",nombre d'arrestations: "+this.nbArret+",diplome: "+this.dip); 
     } 
 }

@@ -9,7 +9,7 @@ public class Voiture extends Vehicule
 	static int accidentVoiture(Personnage perso)
 	{
 		double rand = Math.random()*100;
-		System.out.println(rand);
+		//System.out.println(rand);
 		if ((int)rand <= 2) {
 			System.out.println("Vous avez eu un accident.");
 			perso.mort();

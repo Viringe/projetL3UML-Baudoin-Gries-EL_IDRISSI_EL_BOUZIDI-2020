@@ -9,7 +9,7 @@ public class Velo extends Vehicule
 	static void accidentVelo(Personnage perso)
 	{
 		double rand = Math.random()*100;
-		System.out.println(rand);
+		//System.out.println(rand);
 		if ((double)rand <= 0.5) {
 			System.out.println("Finalement vous auriez du y aller à pieds. Vous vous vider de votre sang sur le bord du trottoir.");
 			perso.mort();

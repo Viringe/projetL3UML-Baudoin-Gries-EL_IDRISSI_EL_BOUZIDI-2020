@@ -59,6 +59,29 @@ public class main {
 					perso.setSat(Double.parseDouble(br.readLine()));
 					perso.setHyd(Double.parseDouble(br.readLine()));
 					perso.setMor(Double.parseDouble(br.readLine()));
+					
+					String tmp = br.readLine();
+					if (tmp.equals("APied")) {
+						perso.setDeplacement(null);
+						APied dep = new APied();
+						perso.setDeplacement(dep);
+					}
+					else if (tmp.equals("Velo"))
+					{
+						perso.setDeplacement(null);
+                		Velo dep = new Velo();
+						perso.setDeplacement(dep);
+					}
+					else if (tmp.equals("Voiture"))
+					{
+						perso.setDeplacement(null);
+                		Voiture dep = new Voiture();
+						perso.setDeplacement(dep);
+					}
+					perso.setMaillot(Boolean.parseBoolean(br.readLine()));
+					
+					perso.setNbArret(Integer.parseInt(br.readLine()));
+					
 					perso.setDip(Double.parseDouble(br.readLine()));
 					i=Integer.parseInt(br.readLine());
 					j=Integer.parseInt(br.readLine());
@@ -174,7 +197,7 @@ public class main {
             	
 			}
             else if (action.equals("save")) {
-            	//perso:type,nom,vie,sat,hyd,mor,dip
+            	//perso:type,nom,vie,sat,hyd,mor, vehicule: ")+",maillot: "+,nombre d'arrestations: "+",diplome: "+this.dip)
     			//i et j
     			//bonus
             	try {
@@ -191,6 +214,14 @@ public class main {
             		bw.newLine();
             		bw.write(String.valueOf(perso.getMor()));
             		bw.newLine();
+            		
+            		bw.write(String.valueOf(perso.getDeplacement().getClass().getName()));
+            		bw.newLine();
+            		bw.write(String.valueOf(perso.getMaillot()));
+            		bw.newLine();
+            		bw.write(String.valueOf(perso.getNbArret()));
+            		bw.newLine();
+            		
             		bw.write(String.valueOf(perso.getDip()));
             		bw.newLine();
             		bw.write(String.valueOf(i));
@@ -229,18 +260,20 @@ public class main {
                     	String vehicule = cmd.nextLine();
                     	
                     	if (vehicule.equals("pied")) {
+                    		System.out.println("Vous rangez votre vehicule dans votre poche. Ca coûte cher ses conneries.");
                     		perso.setDeplacement(null);//pour pas a voir trops objet java
                     		APied dep = new APied();
 							perso.setDeplacement(dep);
 						}
                     	else if(vehicule.equals("voiture") && !perso.getClass().getName().equals("HommeHippie"))
                     	{
-                    		System.out.println();
+                    		System.out.println("Vous sortez une capsule de votre poche. Vous deployez la voiture. Il faudra penser à remercier Bulma pour l'invention.");
                     		perso.setDeplacement(null);
                     		Voiture dep = new Voiture();
 							perso.setDeplacement(dep);
                     	}
                     	else if (vehicule.equals("velo")) {
+                    		System.out.println("Vous sortez une capsule de votre poche. Vous deployez le vélo. Il faudra penser à remercier Bulma pour l'invention.");
                     		perso.setDeplacement(null);
                     		Velo dep = new Velo();
 							perso.setDeplacement(dep);
@@ -423,8 +456,6 @@ public class main {
 	public static void gestionVehiculeAPied(Personnage perso)
 	{
 		System.out.println("Un peu d'exercice ne vous fera pas de mal. Il fait chaud dehors.");
-		perso.setHyd(perso.getHyd()-10);
-		perso.setSat(perso.getSat()-10);
 		int piege=APied.piege();
 		if(piege == 1)
 		{
@@ -466,19 +497,23 @@ public class main {
 		{
 			if(direction.equals("down") && (monde.tab_ville[i+1][j].getClass().getName().equals("Trottoir") 
 						|| monde.tab_ville[i+1][j].getClass().getName().equals("Foret")
-						|| monde.tab_ville[i+1][j].getClass().getSuperclass().getName().equals("Batiment"))
+						|| monde.tab_ville[i+1][j].getClass().getSuperclass().getName().equals("Batiment")
+						|| (monde.tab_ville[i+1][j].getClass().getName().equals("Eau") && perso.getMaillot()))
 	        		||
 	            	direction.equals("up") && (monde.tab_ville[i-1][j].getClass().getName().equals("Trottoir") 
 							|| monde.tab_ville[i-1][j].getClass().getName().equals("Foret")
-							|| monde.tab_ville[i-1][j].getClass().getSuperclass().getName().equals("Batiment"))
+							|| monde.tab_ville[i-1][j].getClass().getSuperclass().getName().equals("Batiment")
+							|| (monde.tab_ville[i-1][j].getClass().getName().equals("Eau") && perso.getMaillot()))
 	            	||
 	            	direction.equals("right") && (monde.tab_ville[i][j+1].getClass().getName().equals("Trottoir") 
 							|| monde.tab_ville[i][j+1].getClass().getName().equals("Foret")
-							|| monde.tab_ville[i][j+1].getClass().getSuperclass().getName().equals("Batiment"))
+							|| monde.tab_ville[i][j+1].getClass().getSuperclass().getName().equals("Batiment")
+							|| (monde.tab_ville[i][j+1].getClass().getName().equals("Eau") && perso.getMaillot()))
 	            	||
 	            	direction.equals("left") && (monde.tab_ville[i][j-1].getClass().getName().equals("Trottoir") 
 							|| monde.tab_ville[i][j-1].getClass().getName().equals("Foret")
-							|| monde.tab_ville[i][j-1].getClass().getSuperclass().getName().equals("Batiment")))
+							|| monde.tab_ville[i][j-1].getClass().getSuperclass().getName().equals("Batiment"))
+	            			|| (monde.tab_ville[i][j-1].getClass().getName().equals("Eau") && perso.getMaillot()))
 			{
 				gestionVehiculeAPied(perso);
 				perso.setHyd(perso.getHyd()-10);
