@@ -13,7 +13,7 @@ public class main {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		
-		@SuppressWarnings("resource")
+		@SuppressWarnings("ressource")
 		Scanner cmd = new Scanner( System.in );
 		
         Personnage perso = null;
@@ -75,26 +75,26 @@ public class main {
 		        
 		        while(true)
 		        {
-		        	System.out.print( "type de personage hippie,presse,standard : " );
+		        	System.out.print( "type de personnage hippie,presse,standard : " );
 		            String type = cmd.nextLine();
 		            //System.out.println("-"+type+"-");
 		            if (type.equals("hippie")) {
 		    			//create le perso
-		            	System.out.print( "nom de votre hippie: " );
+		            	System.out.print( "nom de votre futur chômeur (hippie) : " );
 		                String name = cmd.nextLine();
 		            	perso = new HommeHippie(name);
 		            	break;
 		    		}
 		    		if (type.equals("presse"))
 		    		{
-		    			System.out.print( "nom de votre homme persse: " );
+		    			System.out.print( "nom de votre dépressif (homme pressé) : " );
 		                String name = cmd.nextLine();
 		                perso = new HommePresse(name);
 		            	break;
 		    		}
 		    		if (type.equals("standard"))
 		    		{
-		    			System.out.print( "nom de votre homme standard: " );
+		    			System.out.print( "nom de votre Jean Michel (homme standard) : " );
 		                String name = cmd.nextLine();
 		                perso = new HommeNormal(name);
 		            	break;
@@ -220,35 +220,58 @@ public class main {
             		System.out.println("         "+monde.tab_ville[i+1][j].getClass().getName());//bas
             		//System.out.println( );//gauche
             		//System.out.println(i+"  "+j);
+            		System.out.println( "change de moyen de transport(vehicule)" );
             		System.out.println( "direction(up,down,right,left): " );//liste action
                     String direction = cmd.nextLine();
                     
-                    if(direction.equals("down") && monde.tab_ville[i+1][j].getClass().getName().equals("Grise")||
+                    if (direction.equals("vehicule")) {
+                    	System.out.println( "moyen de transport(pied,voiture,velo):" );
+                    	String vehicule = cmd.nextLine();
+                    	
+                    	if (vehicule.equals("pied")) {
+                    		perso.setDeplacement(null);//pour pas a voir trops objet java
+                    		APied dep = new APied();
+							perso.setDeplacement(dep);
+						}
+                    	else if(vehicule.equals("voiture") && !perso.getClass().getName().equals("HommeHippie"))
+                    	{
+                    		System.out.println();
+                    		perso.setDeplacement(null);
+                    		Voiture dep = new Voiture();
+							perso.setDeplacement(dep);
+                    	}
+                    	else if (vehicule.equals("velo")) {
+                    		perso.setDeplacement(null);
+                    		Velo dep = new Velo();
+							perso.setDeplacement(dep);
+						}
+					}
+                    else if(direction.equals("down") && monde.tab_ville[i+1][j].getClass().getName().equals("Grise")||
                     		direction.equals("up") && monde.tab_ville[i-1][j].getClass().getName().equals("Grise")||
                     		direction.equals("right") && monde.tab_ville[i][j+1].getClass().getName().equals("Grise")||
                     		direction.equals("left") && monde.tab_ville[i][j-1].getClass().getName().equals("Grise"))
 					{
-						System.out.println("vous avez pris un mur, vous perde 10 point de vie");
-						System.out.println("non je decone");
+						System.out.println("vous avez pris un mur, vous perdez 10 points de vie. Vous êtes mort.");
+						System.out.println("non je deconne");
 					}
-                    else if (direction.equals("up") && !monde.tab_ville[i-1][j].getClass().getName().equals("Grise"))
+                    else if (direction.equals("up") && !monde.tab_ville[i-1][j].getClass().getName().equals("Grise") && depalcement(direction, monde, i,  j, perso))
                     {
                     	i--;
                     	gestionBarreD(perso);
                     	
 						//if action rand make it 
 					}
-                    else if (direction.equals("down") && !monde.tab_ville[i+1][j].getClass().getName().equals("Grise"))
+                    else if (direction.equals("down") && !monde.tab_ville[i+1][j].getClass().getName().equals("Grise") && depalcement(direction, monde, i,  j, perso))
 					{
 						gestionBarreD(perso);
 						i++;					
 										}
-                    else if (direction.equals("right") && !monde.tab_ville[i][j+1].getClass().getName().equals("Grise"))
+                    else if (direction.equals("right") && !monde.tab_ville[i][j+1].getClass().getName().equals("Grise") && depalcement(direction, monde, i,  j, perso))
 					{
 						gestionBarreD(perso);
 						j++;
 					}
-                    else if (direction.equals("left") && !monde.tab_ville[i][j-1].getClass().getName().equals("Grise"))
+                    else if (direction.equals("left") && !monde.tab_ville[i][j-1].getClass().getName().equals("Grise") && depalcement(direction, monde, i,  j, perso))
 					{
 						gestionBarreD(perso);
 						j--;
@@ -324,7 +347,7 @@ public class main {
 		double rand = Math.random()*100;
 		//System.out.println(rand);
 		if ((int)rand <= chance) {
-			System.out.println("lol tes malade");
+			System.out.println("lol t'es malade");
 			perso.setVie(perso.getVie()-10);
 		}
 	}
@@ -348,7 +371,79 @@ public class main {
 			perso.setVie(perso.getVie()-1);
 		}
 	}
-	
+/**
+ * @author Tatiana GRIES
+ */
+	// Faire checker par Alexis ici. 
+	public static void gestionVehiculeVoiture(Personnage perso)
+	{
+		int piege = Voiture.piege();
+		if (piege == 1)
+		{
+			perso.setVie(perso.getVie()-1);
+		}
+		else if (piege == 2)
+		{
+			perso.setHyd(perso.getHyd()-2);
+			perso.setSat(perso.getSat()-2);
+		}
+		else if (piege ==3)
+		{
+			//police 3 max
+			perso.setNbArret(perso.getNbArret()+1);
+			if (perso.getNbArret() >=3 ) {
+				System.out.println("la police vous a arretes, vous passez le restant de vos jours en prison. GAME OVER");
+				perso.mort();
+			}
+			perso.setMor(perso.getMor()-1);
+		}
+		Voiture.accidentVoiture(perso);
+	}
+
+	public static void gestionVehiculevelo(Personnage perso)
+	{
+		int piege = Velo.piege();
+		if (piege == 1)
+		{
+			perso.setVie(perso.getVie()-1);
+		}
+		else if (piege == 2)
+		{
+			perso.setHyd(perso.getHyd()-2);
+			perso.setSat(perso.getSat()-2);
+		}
+		else if (piege ==3)
+		{
+			//police 3 max
+			perso.setMor(perso.getMor()-1);
+		}
+		Velo.accidentVelo(perso);
+	}
+
+	public static void gestionVehiculeAPied(Personnage perso)
+	{
+		System.out.println("Un peu d'exercice ne vous fera pas de mal. Il fait chaud dehors.");
+		perso.setHyd(perso.getHyd()-10);
+		perso.setSat(perso.getSat()-10);
+		int piege=APied.piege();
+		if(piege == 1)
+		{
+			perso.setVie(perso.getVie()-3);	
+		}
+		else if(piege == 2)
+		{
+			perso.setMor(perso.getMor()-2);
+		}
+		else if(piege ==3)
+		{
+			perso.setMor(perso.getSat()-1);
+		}
+
+	}
+
+/**
+ * @author Alexis Baudoin
+ */
 	public static void verif(Personnage perso)
 	{
 		if (perso.getHyd()<=0) {
@@ -363,6 +458,74 @@ public class main {
 		else if (perso.getMor()<=0) {
 			perso.mort();
 		}
+	}
+	
+	public static Boolean depalcement(String direction, Ville monde,int i, int j, Personnage perso)
+	{
+		if(perso.getDeplacement().getClass().getName().equals("APied"))
+		{
+			if(direction.equals("down") && (monde.tab_ville[i+1][j].getClass().getName().equals("Trottoir") 
+						|| monde.tab_ville[i+1][j].getClass().getName().equals("Foret")
+						|| monde.tab_ville[i+1][j].getClass().getSuperclass().getName().equals("Batiment"))
+	        		||
+	            	direction.equals("up") && (monde.tab_ville[i-1][j].getClass().getName().equals("Trottoir") 
+							|| monde.tab_ville[i-1][j].getClass().getName().equals("Foret")
+							|| monde.tab_ville[i-1][j].getClass().getSuperclass().getName().equals("Batiment"))
+	            	||
+	            	direction.equals("right") && (monde.tab_ville[i][j+1].getClass().getName().equals("Trottoir") 
+							|| monde.tab_ville[i][j+1].getClass().getName().equals("Foret")
+							|| monde.tab_ville[i][j+1].getClass().getSuperclass().getName().equals("Batiment"))
+	            	||
+	            	direction.equals("left") && (monde.tab_ville[i][j-1].getClass().getName().equals("Trottoir") 
+							|| monde.tab_ville[i][j-1].getClass().getName().equals("Foret")
+							|| monde.tab_ville[i][j-1].getClass().getSuperclass().getName().equals("Batiment")))
+			{
+				gestionVehiculeAPied(perso);
+				perso.setHyd(perso.getHyd()-10);
+				perso.setSat(perso.getSat()-10);
+				return true;
+			}
+			else
+				System.out.println("vous etes a pieds donc vous ne pouvez marcher que sur le trottoir");
+		}
+		else if(perso.getDeplacement().getClass().getName().equals("Velo"))
+		{
+			if(direction.equals("down") && (monde.tab_ville[i+1][j].getClass().getName().equals("Route"))
+	        		||
+	            	direction.equals("up") && (monde.tab_ville[i-1][j].getClass().getName().equals("Route"))
+	            	||
+	            	direction.equals("right") && (monde.tab_ville[i][j+1].getClass().getName().equals("Route"))
+	            	||
+	            	direction.equals("left") && (monde.tab_ville[i][j-1].getClass().getName().equals("Route")))
+			{
+				Velo.accidentVelo(perso);
+				perso.setHyd(perso.getHyd()-5);
+				perso.setSat(perso.getSat()-5);
+				return true;
+			}
+			else
+				System.out.println("vous etes a velo donc vous ne pouvez rouler que sur la route");
+		}
+		else if(perso.getDeplacement().getClass().getName().equals("Voiture"))
+		{
+			if(direction.equals("down") && (monde.tab_ville[i+1][j].getClass().getName().equals("Route"))
+	        		||
+	            	direction.equals("up") && (monde.tab_ville[i-1][j].getClass().getName().equals("Route"))
+	            	||
+	            	direction.equals("right") && (monde.tab_ville[i][j+1].getClass().getName().equals("Route"))
+	            	||
+	            	direction.equals("left") && (monde.tab_ville[i][j-1].getClass().getName().equals("Route")))
+			{
+//				System.out.println("vous etes a pieds donc vous ne pouvez marcher que sur le trottoir");
+				gestionVehiculeVoiture(perso);
+				perso.setMor(perso.getMor()-2);
+				return true;
+			}
+			else
+				System.out.println("vous etes en voiture donc vous ne pouvez rouler que sur la route");
+		}
+		return false;
+		
 	}
 	
 

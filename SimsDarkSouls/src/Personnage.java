@@ -11,6 +11,8 @@ public abstract class Personnage
     protected double mor; // moral
     protected double dip; // diplome
     private boolean mort; // on va se servir de ça après pour voir s'il est vivant ou mort.
+    protected Vehicule deplacement;
+    protected int nbArret;
     
     public Personnage(String nom,double vie,double hyd,double sat,double mor)
     {
@@ -21,6 +23,7 @@ public abstract class Personnage
         this.mor = mor;
         this.dip = 0;
         this.mort = false;
+        this.deplacement = new APied();
     }
     
     public Personnage() 
@@ -31,6 +34,7 @@ public abstract class Personnage
       this.mor = 100; // définie le perso au commencement
       this.dip=0;
       this.mort = false;
+      this.deplacement = new APied();
     }
 
     public Personnage (int valeurDep, int valeurDepBis)
@@ -41,6 +45,7 @@ public abstract class Personnage
         this.mor = valeurDepBis;
         this.dip=0;
         this.mort = false;
+        this.deplacement = new APied();
     }
 
     //accesseurs : permet de récupérer l'info
@@ -68,6 +73,13 @@ public abstract class Personnage
     {
         return nom;
     }
+    public Vehicule getDeplacement()
+    {
+        return deplacement;
+    }
+    public int getNbArret() {
+		return nbArret;
+	}
 
     //setters : définie les valeurs
     public void setVie(double valeurDep)
@@ -90,6 +102,13 @@ public abstract class Personnage
     {
     	this.dip = valeurDep;
     }
+    public void setDeplacement(Vehicule dep)
+    {
+    	this.deplacement = dep;
+    }
+    public void setNbArret(int dep) {
+		this.nbArret = dep;
+	}
 
     // service :
     public void seDeplacer(int deplacement)
@@ -129,6 +148,6 @@ public abstract class Personnage
     
     @Override
     public String toString() { 
-        return String.format("nom: "+this.nom+",vie: "+this.vie+",hyd: "+this.hyd+",sat: "+this.sat+",morale: "+this.mor+",diplome: "+this.dip); 
+        return String.format("nom: "+this.nom+",vie: "+this.vie+",hyd: "+this.hyd+",sat: "+this.sat+",morale: "+this.mor+",vehicule: "+this.deplacement.getClass().getName()+",diplome: "+this.dip); 
     } 
 }
